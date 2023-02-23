@@ -10,6 +10,7 @@
     "start": "node dist",
     "start:dev": "node --watch dist",
     "test": "npx jest",
+    "test:dev": "npx jest --watch",
     "test:coverage": "npx jest --coverage --watchAll=false",
     "prepare": "husky install"
   },
@@ -33,6 +34,7 @@
     "husky": "^8.0.0",
     "jest-ts-webcompat-resolver": "^1.0.0",
     "lint-staged": "^13.1.2",
+    "mongodb-memory-server": "^8.11.5",
     "prettier": "^2.8.4",
     "supertest": "^6.3.3",
     "ts-jest": "^29.0.5",
@@ -46,7 +48,6 @@
     "eslint-config-prettier": "^8.6.0",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
-    "mongodb-memory-server": "^8.11.4",
     "mongoose": "^6.9.2",
     "morgan": "^1.10.0"
   }
