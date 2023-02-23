@@ -4,6 +4,7 @@ import { CustomError } from "../../CustomError/CustomError.js";
 import User from "../../database/models/User.js";
 import { type UserCredentials } from "../../types";
 import jwt from "jsonwebtoken";
+import bcryptjs from "bcryptjs";
 
 export const loginUser = async (
   req: Request<
@@ -16,7 +17,7 @@ export const loginUser = async (
 ) => {
   const { username, password } = req.body;
 
-  const user = await User.findOne({ username, password });
+  const user = await User.findOne({ username });
 
   if (!user) {
     const customError = new CustomError(
@@ -39,7 +40,7 @@ export const loginUser = async (
   res.status(200).json({ token });
 };
 
-export const createUser = (
+export const createUser = async (
   req: Request<
     Record<string, unknown>,
     Record<string, unknown>,
@@ -48,5 +49,26 @@ export const createUser = (
   res: Response,
   next: NextFunction
 ) => {
-  res.status(201);
+  try {
+    const { username, password } = req.body;
+
+    const avatar = req.file?.filename;
+
+    const hashedPassword = await bcryptjs.hash(password, 10);
+
+    const user = await User.create({
+      username,
+      password: hashedPassword,
+      avatar,
+    });
+
+    res.status(201).json({ user });
+  } catch (error) {
+    const customError = new CustomError(
+      (error as Error).message,
+      500,
+      "Couldn't create the user"
+    );
+    next(customError);
+  }
 };

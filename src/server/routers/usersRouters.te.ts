@@ -26,6 +26,7 @@ afterEach(async () => {
 const mockUser: UserCredentials = {
   username: "Raimón",
   password: "raimon1234",
+  avatar: "fototoguapa",
 };
 
 describe("Given a POST '/users/login' endpoint", () => {
