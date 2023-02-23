@@ -5,7 +5,7 @@ import User from "../../database/models/User.js";
 import { type UserCredentials } from "../../types";
 import jwt from "jsonwebtoken";
 
-const loginUser = async (
+export const loginUser = async (
   req: Request<
     Record<string, unknown>,
     Record<string, unknown>,
@@ -39,4 +39,14 @@ const loginUser = async (
   res.status(200).json({ token });
 };
 
-export default loginUser;
+export const createUser = (
+  req: Request<
+    Record<string, unknown>,
+    Record<string, unknown>,
+    UserCredentials
+  >,
+  res: Response,
+  next: NextFunction
+) => {
+  res.status(201);
+};
